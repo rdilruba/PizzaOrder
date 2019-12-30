@@ -1,3 +1,22 @@
+.root-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+
+    .content {
+        display: flex;
+        justify-content: center;
+        flex-grow: 1;
+
+        background-color: rgb(233, 229, 229);
+
+        width: 100%;
+
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+}
+
 .home-container {
     display: flex;
     justify-content: space-around;
@@ -16,5 +35,6 @@
         border: 2px solid #d37f1f;
         background-color: white;
         margin: auto;
+        padding: 50px;
     }
 }

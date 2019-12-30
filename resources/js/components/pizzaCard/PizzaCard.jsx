@@ -1,22 +1,55 @@
 import React, { Component } from "react";
-import { Icon } from "antd";
+import { Button, InputNumber } from "antd";
 
 import "./pizza-card.scss";
 
 class PizzaCard extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            id: props.id,
+            amount: 1
+        };
+        this.onChange = this.onChange.bind(this);
+        this.handleAdd = this.handleAdd.bind(this);
+    }
+
+    onChange(value) {
+        this.setState({
+            amount: value
+        });
+    }
+
+    handleAdd(value) {
+        this.props.addTotal(value, this.state.id);
     }
 
     render() {
-        const { key, src, alt, description } = this.props;
+        const { src, alt, description } = this.props;
+        const { amount } = this.state;
         return (
             <div className="card-container">
                 <div className="photo-container">
-                    <img key={key} src={src} alt={alt} />
-                    <p>{description}</p>
-                    <Icon type="shopping-cart" />
+                    <img src={src} alt={alt} />
+                </div>
+                <div>
+                    <p className="pizza-description">{description}</p>
+                    <div className="cart-container">
+                        <InputNumber
+                            className="input-container"
+                            min={1}
+                            max={10}
+                            defaultValue={1}
+                            onChange={this.onChange}
+                        />
+                        <Button
+                            onClick={() => this.handleAdd(amount)}
+                            type="default"
+                            icon="shopping-cart"
+                        >
+                            Add
+                        </Button>
+                    </div>
                 </div>
             </div>
         );

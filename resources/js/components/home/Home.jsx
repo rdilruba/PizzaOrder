@@ -1,15 +1,18 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import "./home.scss";
-import Page from "../../components/page/Page";
+import Navbar from "../navbar/Navbar";
+import Footer from "../footer/Footer";
 import PizzaCard from "../pizzaCard/PizzaCard";
 
 export default class Home extends Component {
     constructor() {
         super();
         this.state = {
-            pizzas: null
+            pizzas: null,
+            total: 0
         };
+        this.handleIncrease = this.handleIncrease.bind(this);
     }
 
     componentDidMount() {
@@ -21,27 +24,40 @@ export default class Home extends Component {
                 this.setState({ pizzas: pizzas });
             });
     }
+    handleIncrease(val, id) {
+        console.log(val, id);
+        this.setState(prevState => ({
+            total: prevState.total + val
+        }));
+    }
     render() {
-        const { pizzas } = this.state;
+        const { pizzas, total } = this.state;
+        console.log(total);
         return (
-            <Page>
-                <div className="home-container">
-                    <div className="pizza-container">
-                        {pizzas
-                            ? pizzas.map(
-                                  ({ id, image, title, description }) => (
-                                      <PizzaCard
-                                          key={id}
-                                          src={image}
-                                          alt={title}
-                                          description={description}
-                                      ></PizzaCard>
+            <div className="root-container">
+                <Navbar total={total} />
+                <div className="content">
+                    <div className="home-container">
+                        <div className="pizza-container">
+                            {pizzas
+                                ? pizzas.map(
+                                      ({ id, image, title, description }) => (
+                                          <PizzaCard
+                                              key={id}
+                                              id={id}
+                                              src={image}
+                                              alt={title}
+                                              description={description}
+                                              addTotal={this.handleIncrease}
+                                          ></PizzaCard>
+                                      )
                                   )
-                              )
-                            : "waiting"}
+                                : "waiting"}
+                        </div>
                     </div>
                 </div>
-            </Page>
+                <Footer />
+            </div>
         );
     }
 }

@@ -1,70 +1,105 @@
-import React from "react";
-import { Layout, Button } from "antd";
-import { Link, BrowserRouter } from "react-router-dom";
+import React, { Component } from "react";
+import { Layout, Button, Icon } from "antd";
 
 import Logo from "./Logo";
 import "./navbar.scss";
 
 const { Header } = Layout;
 
-const Navbar = props => {
-    const { user } = props;
+class Navbar extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            pizzas: null,
+            visible: false
+        };
 
-    const Logout = () => {
-        const { logout } = props;
-        logout();
-    };
+        this.handleOk = this.handleOk.bind(this);
+        this.handleCancel = this.handleCancel.bind(this);
+        this.handleCart = this.handleCart.bind(this);
+    }
+    componentDidMount() {
+        fetch("/api/pizzas")
+            .then(response => {
+                return response.json();
+            })
+            .then(pizzas => {
+                this.setState({ pizzas: pizzas });
+            });
+    }
 
-    return (
-        <div className="navbar-container">
-            <Layout className="layout">
-                <Header>
-                    <div className="logo">
-                        <Logo />
+    handleOk() {
+        this.setState({
+            visible: false
+        });
+    }
+
+    handleCancel() {
+        this.setState({
+            visible: false
+        });
+    }
+
+    handleCart() {
+        this.setState({
+            visible: true
+        });
+    }
+
+    render() {
+        const { visible } = this.state;
+        const { total } = this.props;
+        return (
+            <div className="navbar-container">
+                {visible ? (
+                    <div className="modal-cart">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <button
+                                    onClick={this.handleCancel}
+                                    className="close"
+                                >
+                                    &times;
+                                </button>
+                                <h3>Your Cart</h3>
+                            </div>
+                            <div className="modal-body">
+                                <p>Some text in the Modal Body</p>
+                                <p>Some other text...</p>
+                            </div>
+                            <div className="modal-footer">
+                                <button
+                                    className="order-button"
+                                    onClick={this.handleOk}
+                                >
+                                    Order Now
+                                </button>
+                            </div>
+                        </div>
                     </div>
+                ) : null}
 
-                    {user ? (
-                        <div className="buttons">
-                            <BrowserRouter>
-                                <Link to="/profile">
-                                    <Button
-                                        className="profile-button"
-                                        type="primary"
-                                    >
-                                        Profile
-                                    </Button>
-                                </Link>
-                            </BrowserRouter>
-                            <BrowserRouter>
-                                <Link to="/">
-                                    <Button type="danger" onClick={Logout}>
-                                        Logout
-                                    </Button>
-                                </Link>
-                            </BrowserRouter>
+                <Layout className="layout">
+                    <Header>
+                        <div className="logo">
+                            <Logo />
                         </div>
-                    ) : (
-                        <div className="buttons">
-                            <BrowserRouter>
-                                <Link to="/login">
-                                    <Button className="button" type="primary">
-                                        LOGIN
-                                    </Button>
-                                </Link>
-                            </BrowserRouter>
-                            <BrowserRouter>
-                                <Link to="/login">
-                                    <Button className="button" type="primary">
-                                        REGISTER
-                                    </Button>
-                                </Link>
-                            </BrowserRouter>
-                        </div>
-                    )}
-                </Header>
-            </Layout>
-        </div>
-    );
-};
+                        {total ? (
+                            <p className="notification"> {total} </p>
+                        ) : null}
+                        <Button
+                            onClick={this.handleCart}
+                            className="cart-button"
+                            icon="shopping-cart"
+                            type="primary"
+                        >
+                            Cart
+                        </Button>
+                    </Header>
+                </Layout>
+            </div>
+        );
+    }
+}
 
 export default Navbar;
