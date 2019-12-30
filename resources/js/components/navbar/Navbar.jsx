@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { Layout, Button, Icon } from "antd";
+import { Layout, Button } from "antd";
 
+import PizzaOrder from "../pizzaOrder/PizzaOrder";
 import Logo from "./Logo";
 import "./navbar.scss";
 
@@ -11,12 +12,14 @@ class Navbar extends Component {
         super(props);
         this.state = {
             pizzas: null,
-            visible: false
+            visible: false,
+            success: false
         };
 
         this.handleOk = this.handleOk.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
         this.handleCart = this.handleCart.bind(this);
+        this.handleDecrease = this.handleDecrease.bind(this);
     }
     componentDidMount() {
         fetch("/api/pizzas")
@@ -30,7 +33,7 @@ class Navbar extends Component {
 
     handleOk() {
         this.setState({
-            visible: false
+            success: true
         });
     }
 
@@ -46,9 +49,14 @@ class Navbar extends Component {
         });
     }
 
+    handleDecrease(val, id) {
+        this.props.handleRemove(val, id);
+    }
+
     render() {
-        const { visible } = this.state;
-        const { total } = this.props;
+        const { visible, pizzas, success } = this.state;
+        let totalCost = 0;
+        const { total, pizzaNumbers } = this.props;
         return (
             <div className="navbar-container">
                 {visible ? (
@@ -64,16 +72,55 @@ class Navbar extends Component {
                                 <h3>Your Cart</h3>
                             </div>
                             <div className="modal-body">
-                                <p>Some text in the Modal Body</p>
-                                <p>Some other text...</p>
+                                {pizzas
+                                    ? pizzas.map(
+                                          ({ id, image, title, price }) =>
+                                              pizzaNumbers[id] ? (
+                                                  <div>
+                                                      <PizzaOrder
+                                                          key={id}
+                                                          id={id}
+                                                          src={image}
+                                                          title={title}
+                                                          price={price}
+                                                          amount={
+                                                              pizzaNumbers[id]
+                                                          }
+                                                          removeTotal={
+                                                              this
+                                                                  .handleDecrease
+                                                          }
+                                                          ordered={success}
+                                                      ></PizzaOrder>
+                                                      <div className="no-see">
+                                                          {
+                                                              (totalCost =
+                                                                  totalCost +
+                                                                  price *
+                                                                      pizzaNumbers[
+                                                                          id
+                                                                      ])
+                                                          }
+                                                      </div>
+                                                  </div>
+                                              ) : null
+                                      )
+                                    : null}
                             </div>
                             <div className="modal-footer">
-                                <button
-                                    className="order-button"
-                                    onClick={this.handleOk}
-                                >
-                                    Order Now
-                                </button>
+                                <p> Total Cost : {totalCost}</p>
+                                {success ? (
+                                    <button className="ordered-button">
+                                        Ordered
+                                    </button>
+                                ) : (
+                                    <button
+                                        className="order-button"
+                                        onClick={this.handleOk}
+                                    >
+                                        Order Now
+                                    </button>
+                                )}
                             </div>
                         </div>
                     </div>

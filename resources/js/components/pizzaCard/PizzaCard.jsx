@@ -25,7 +25,7 @@ class PizzaCard extends Component {
     }
 
     render() {
-        const { src, alt, description } = this.props;
+        const { src, alt, description, price } = this.props;
         const { amount } = this.state;
         return (
             <div className="card-container">
@@ -34,6 +34,7 @@ class PizzaCard extends Component {
                 </div>
                 <div>
                     <p className="pizza-description">{description}</p>
+                    <p> {price}$</p>
                     <div className="cart-container">
                         <InputNumber
                             className="input-container"

@@ -14,26 +14,30 @@
             margin: 15% auto;
             padding: 20px;
             border: 1px solid #888;
-            width: 40%;
-            .modal-header {
-                padding: 2px 16px;
-                color: black;
-            }
+            width: 30%;
+            color: black;
+            align-items: center;
+
             .modal-body {
-                padding: 2px 16px;
-            }
+                padding-right: 150px;
 
-            /* Modal Footer */
-            .modal-footer {
-                padding: 2px 16px;
-                color: black;
-
-                .order-button {
-                    background: none;
-                    border: 1px solid rgb(17, 1, 1);
-                    cursor: pointer;
+                .no-see {
+                    display: none;
                 }
             }
+
+            .order-button {
+                background: none;
+                border: 1px solid rgb(17, 1, 1);
+                cursor: pointer;
+            }
+
+            .ordered-button {
+                background-color: yellowgreen;
+                border: 1px solid rgb(17, 1, 1);
+                cursor: not-allowed;
+            }
+
             .close {
                 color: #aaa;
                 float: right;
