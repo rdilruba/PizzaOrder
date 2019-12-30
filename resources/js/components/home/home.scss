@@ -1,0 +1,20 @@
+.home-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+
+    width: 90%;
+
+    padding-top: 50px;
+    padding-bottom: 50px;
+
+    .pizza-container {
+        display: flex;
+        flex-wrap: wrap;
+        width: 80%;
+        border-radius: 6px;
+        border: 2px solid #d37f1f;
+        background-color: white;
+        margin: auto;
+    }
+}

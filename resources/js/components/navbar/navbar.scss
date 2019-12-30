@@ -1,0 +1,39 @@
+.navbar-container {
+    .ant-layout-header {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        background-color: #d37f1f;
+        height: 90px;
+        padding-right: 100px;
+
+        .ant-input-search {
+            min-width: 100px;
+            max-width: 200px;
+            margin-right: 20px;
+        }
+
+        .logo {
+            align-items: center;
+            margin-right: auto;
+            display: flex;
+            justify-content: space-around;
+            width: 500px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            width: 220px;
+
+            .button {
+                border: 1px solid white;
+                background-color: rgb(0, 0, 0);
+                padding-left: 16px;
+                padding-right: 16px;
+                letter-spacing: 3px;
+                border-radius: 8px;
+            }
+        }
+    }
+}
