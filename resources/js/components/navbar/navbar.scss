@@ -35,7 +35,7 @@
             .ordered-button {
                 background-color: yellowgreen;
                 border: 1px solid rgb(17, 1, 1);
-                cursor: not-allowed;
+                cursor: default;
             }
 
             .close {
@@ -80,6 +80,18 @@
             border-radius: 9px;
             width: 20px;
             cursor: default;
+        }
+        .reorder-button {
+            border: 1px solid white;
+            background-color: rgb(0, 0, 0);
+            color: white;
+            padding-left: 16px;
+            padding-right: 16px;
+            letter-spacing: 3px;
+            border-radius: 3px;
+            margin-right: 3px;
+            height: 35px;
+            cursor: pointer;
         }
         .cart-button {
             border: 1px solid white;

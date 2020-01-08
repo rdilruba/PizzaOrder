@@ -11,10 +11,11 @@ export default class Home extends Component {
         this.state = {
             pizzas: null,
             total: 0,
-            pizzaNumbers: []
+            pizzaNumbers: [],
+            success: false
         };
         this.handleIncrease = this.handleIncrease.bind(this);
-
+        this.handleOrder = this.handleOrder.bind(this);
         this.handleDecrease = this.handleDecrease.bind(this);
     }
 
@@ -28,6 +29,11 @@ export default class Home extends Component {
             });
     }
 
+    handleOrder(ordered) {
+        this.setState({
+            success: ordered
+        });
+    }
     handleIncrease(val, id) {
         this.setState(prevState => ({
             total: prevState.total + val
@@ -48,13 +54,14 @@ export default class Home extends Component {
     }
 
     render() {
-        const { pizzas, total, pizzaNumbers } = this.state;
+        const { pizzas, total, pizzaNumbers, success } = this.state;
         return (
             <div className="root-container">
                 <Navbar
                     total={total}
                     pizzaNumbers={pizzaNumbers}
                     handleRemove={this.handleDecrease}
+                    handleOrder={this.handleOrder}
                 />
                 <div className="content">
                     <div className="home-container">
@@ -76,6 +83,7 @@ export default class Home extends Component {
                                               price={price}
                                               description={description}
                                               addTotal={this.handleIncrease}
+                                              ordered={success}
                                           ></PizzaCard>
                                       )
                                   )

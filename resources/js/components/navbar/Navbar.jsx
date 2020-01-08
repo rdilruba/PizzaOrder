@@ -35,6 +35,7 @@ class Navbar extends Component {
         this.setState({
             success: true
         });
+        this.props.handleOrder(true);
     }
 
     handleCancel() {
@@ -108,7 +109,7 @@ class Navbar extends Component {
                                     : null}
                             </div>
                             <div className="modal-footer">
-                                <p> Total Cost : {totalCost}</p>
+                                <p> Total Cost : {totalCost}$</p>
                                 {success ? (
                                     <button className="ordered-button">
                                         Ordered
@@ -116,7 +117,9 @@ class Navbar extends Component {
                                 ) : (
                                     <button
                                         className="order-button"
-                                        onClick={this.handleOk}
+                                        onClick={
+                                            totalCost ? this.handleOk : null
+                                        }
                                     >
                                         Order Now
                                     </button>
@@ -131,6 +134,15 @@ class Navbar extends Component {
                         <div className="logo">
                             <Logo />
                         </div>
+                        {success ? (
+                            <Button
+                                onClick={() => window.location.reload()}
+                                className="reorder-button"
+                                type="primary"
+                            >
+                                New Order
+                            </Button>
+                        ) : null}
                         {total ? (
                             <p className="notification"> {total} </p>
                         ) : null}

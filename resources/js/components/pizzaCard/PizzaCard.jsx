@@ -25,7 +25,7 @@ class PizzaCard extends Component {
     }
 
     render() {
-        const { src, alt, description, price } = this.props;
+        const { src, alt, description, price, ordered } = this.props;
         const { amount } = this.state;
         return (
             <div className="card-container">
@@ -44,7 +44,9 @@ class PizzaCard extends Component {
                             onChange={this.onChange}
                         />
                         <Button
-                            onClick={() => this.handleAdd(amount)}
+                            onClick={
+                                ordered ? null : () => this.handleAdd(amount)
+                            }
                             type="default"
                             icon="shopping-cart"
                         >
