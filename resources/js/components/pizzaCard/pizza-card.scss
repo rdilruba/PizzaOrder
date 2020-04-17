@@ -1,15 +1,24 @@
 .card-container {
-    margin: auto;
     margin-top: 25px;
     margin-bottom: 25px;
-    width: 40%;
+    margin-left: 8%;
+    width: 38%;
+    min-width: 290px;
     display: flex;
     flex-direction: row;
-    border: 3px solid black;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     background-color: blanchedalmond;
-    height: 222px;
+    height: 179px;
+    .photo-container {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
     .pizza-description {
-        height: 100px;
+        margin: 10px;
+        height: 70px;
     }
     .cart-container {
         display: flex;

@@ -11,6 +11,9 @@
 
         <!-- Styles -->
         <style>
+            #root{
+                height: 100%;
+            }
             html, body {
                 background-color: #fff;
                 color: #636b6f;
@@ -37,6 +40,7 @@
             }
             .content {
                 text-align: center;
+                height: 100%;
             }
             .title {
                 font-size: 84px;
