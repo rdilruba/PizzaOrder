@@ -1,8 +1,4 @@
 
-## Deployed Link
-
-https://pizza-order-for.herokuapp.com/
-
 
 
 ## Explanation
